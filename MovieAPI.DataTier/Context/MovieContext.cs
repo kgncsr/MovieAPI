@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MovieAPI.ModelTier;
 
 namespace MovieAPI.DataTier.Context
 {
@@ -20,5 +21,12 @@ namespace MovieAPI.DataTier.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Movie> Movies { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Manager>().HasMany(a => a.Movies).WithOne(a => a.Manager).HasForeignKey(a => a.ManagerId);
+        }
     }
+
+
 }

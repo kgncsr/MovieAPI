@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace MovieAPI.Entities
 {
     public class Category : BaseEntity

@@ -11,21 +11,19 @@ namespace MovieAPI.DataTier.Interfaces
 {
     public interface ICrudRepository<T> where T : BaseEntity
     {
-        DbSet<T> Table { get;  }    
-        Task<IQueryable<T>> GetAllAsync();
+        DbSet<T> Table { get;}    
+        Task<IQueryable<T>> GetAllAsync(bool track=true);
 
         Task<long> GetCountAsync();
-        Task<IQueryable<T>> GetFilterAsync(Expression<Func<T,bool>>predicate);
-        Task<T> GetSingleFilterAsync(Expression<Func<T, bool>> predicate);
-        Task<T> GetByIdAsync(int id);
+        Task<IQueryable<T>> GetFilterAsync(Expression<Func<T,bool>>predicate, bool track = true);
+        Task<T> GetSingleFilterAsync(Expression<Func<T, bool>> predicate, bool track = true);
+        Task<T> GetByIdAsync(int id, bool track = true);
          
         Task<bool> AddAsync(T model);
         Task<bool> AddRangeAsync(IEnumerable<T> adds);
-
         bool Delete(T model);
-        Task<bool> DeleteByIdAsync(int id);
+        bool DeleteByIdAsync(int id);
         bool DeleteRange(IEnumerable<T> deletes);
-
-
+        bool Update(T model);
     }
 }

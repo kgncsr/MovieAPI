@@ -20,30 +20,41 @@ namespace MovieAPI.DataTier.Concrete
         {
             _movieContext = movieContext;
         }
-
         public DbSet<T> Table { get => _movieContext.Set<T>(); }
-        
+
         public async Task<bool> AddAsync(T model)
         {
             EntityEntry<T> entityEntry = await Table.AddAsync(model);
-            return entityEntry.State == EntityState.Added;
+
+            var result = entityEntry.State == EntityState.Added;
+            await _movieContext.SaveChangesAsync();
+            return result;
+
+
+
         }
 
         public async Task<bool> AddRangeAsync(IEnumerable<T> adds)
         {
             await Table.AddRangeAsync(adds);
+            await _movieContext.SaveChangesAsync();
             return true;
         }
 
         public bool Delete(T model)
         {
             EntityEntry<T> entityEntry = Table.Remove(model);
-            return entityEntry.State == EntityState.Added;
+            var result =  entityEntry.State == EntityState.Deleted;
+            _movieContext.SaveChanges();
+            return result;
+
+
         }
 
-        public async Task<bool> DeleteByIdAsync(int id)
+        public bool DeleteByIdAsync(int id)
         {
-           var result =await Table.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            var result = Table.FirstOrDefault(a => a.Id==id);
+
             return Delete(result);
         }
 
@@ -53,16 +64,35 @@ namespace MovieAPI.DataTier.Concrete
             return true;
         }
 
-        public Task<IQueryable<T>> GetAllAsync()
+        public bool Update(T model)
         {
-            var task = new Task<IQueryable<T>>(() => Table.AsQueryable());
+            EntityEntry<T> entityEntry = Table.Update(model);
+            var result =  entityEntry.State == EntityState.Modified;
+            _movieContext.SaveChanges();
+            return result;
+
+        }
+
+        public Task<IQueryable<T>> GetAllAsync(bool track)
+        {
+            var result = Table.AsQueryable();
+            if (!track)
+            {
+                result.AsNoTracking();
+            }
+            var task = new Task<IQueryable<T>>(() => result);
             task.Start();
             return task;
         }
 
-        public Task<T> GetByIdAsync(int id)
+        public Task<T> GetByIdAsync(int id, bool track = true)
         {
-            return Table.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            var query = Table.AsQueryable();
+            if (!track)
+            {
+                query.AsNoTracking();
+            }
+            return query.FirstOrDefaultAsync(a => a.Id.Equals(id));
         }
 
         public async Task<long> GetCountAsync()
@@ -70,20 +100,27 @@ namespace MovieAPI.DataTier.Concrete
             return await Table.LongCountAsync();
         }
 
-        public Task<IQueryable<T>> GetFilterAsync(Expression<Func<T, bool>> predicate)
+        public Task<IQueryable<T>> GetFilterAsync(Expression<Func<T, bool>> predicate, bool track = true)
         {
+            var query = Table.Where(predicate);
+            if (!track)
+            {
+                query.AsNoTracking();
+            }
             var task = new Task<IQueryable<T>>(() => Table.Where(predicate));
             task.Start();
             return task;
         }
 
-        public  Task<T> GetSingleFilterAsync(Expression<Func<T, bool>> predicate)
+        public async Task<T> GetSingleFilterAsync(Expression<Func<T, bool>> predicate, bool track = true)
         {
-            var task = new Task<T>(() => Table.Where(predicate).FirstOrDefault());
-            task.Start();
-            return  task;
+            var query = Table.AsQueryable();
+            if (!track)
+            {
+                query.AsNoTracking();
+            }
+            return await query.FirstOrDefaultAsync(predicate);
         }
-
 
     }
 }

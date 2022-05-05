@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MovieAPI.DataTier.Context;
 
 namespace MovieAPI.DataTier.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    partial class MovieContextModelSnapshot : ModelSnapshot
+    [Migration("20220328134441_Mig2")]
+    partial class Mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -113,17 +115,14 @@ namespace MovieAPI.DataTier.Migrations
                     b.Property<decimal>("Cost")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<float?>("Imdb")
-                        .HasColumnType("real");
-
-                    b.Property<int?>("ManagerId")
+                    b.Property<int>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long?>("Rating")
-                        .HasColumnType("bigint");
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("SceneDate")
                         .HasColumnType("datetime2");
@@ -169,7 +168,9 @@ namespace MovieAPI.DataTier.Migrations
                 {
                     b.HasOne("MovieAPI.Entities.Manager", "Manager")
                         .WithMany("Movies")
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Manager");
                 });
