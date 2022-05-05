@@ -7,6 +7,7 @@ namespace MovieAPI.Entities
 {
     public  class Manager : BaseEntity
     {
+        public string Name { get; set; }
         public DateTime BirthDate { get; set; }
         public List<Movie> Movies { get; set; }
     }

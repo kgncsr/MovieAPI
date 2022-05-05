@@ -10,7 +10,7 @@ namespace MovieAPI.Entities
 {
     public class Movie : BaseEntity
     {
-
+        public string Name { get; set; }
         public DateTime SceneDate { get; set; }
         public long? Rating { get; set; }
         public float? Imdb { get; set; }
