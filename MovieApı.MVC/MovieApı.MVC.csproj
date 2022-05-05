@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MovieAPI.API\MovieAPI.API.csproj" />
+    <ProjectReference Include="..\MovieAPI.Entities\MovieAPI.ModelTier.csproj" />
+    <ProjectReference Include="..\MovieAPI.ServiceTier\MovieAPI.ServiceTier.csproj" />
+  </ItemGroup>
+
+</Project>

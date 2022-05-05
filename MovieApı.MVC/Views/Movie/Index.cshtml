@@ -1,0 +1,19 @@
+﻿@model List<MovieAPI.ServiceTier.Dtos.Movie.MovieDto>
+<h1>Kullanıcılar</h1>
+<table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th scope="row">@item.Name</th>
+        </tr>
+    }
+
+    </tbody>
+</table>
