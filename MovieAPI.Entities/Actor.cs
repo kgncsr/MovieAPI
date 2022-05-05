@@ -10,6 +10,7 @@ namespace MovieAPI.ModelTier
 {
     public class Actor : BaseEntity
     {
+        public string Name { get; set; }
         public string Country { get; set; }
         public string Gender { get; set; }
         public List<Movie>  Movies { get; set; }
