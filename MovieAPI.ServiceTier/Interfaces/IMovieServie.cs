@@ -12,7 +12,7 @@ namespace MovieAPI.ServiceTier.Interfaces
 {
     public interface IMovieService
     {
-        Task<bool> AddAsync(MovieDto model);
+        Task<bool> AddAsync(MovieCreateDto model);
         Task<IQueryable<MovieDto>> GetAllAsync(bool track=true);
         Task<IEnumerable<MovieDto>> FindMoviesYearMonth(int year, int month, bool track = true);
         Task<decimal> FindSumYearAsync(int year);

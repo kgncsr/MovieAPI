@@ -1,19 +1,29 @@
 ﻿@model List<MovieAPI.ServiceTier.Dtos.Movie.MovieDto>
-<h1>Kullanıcılar</h1>
+
+<h1>Film Ekle</h1>
+<a class="btn btn-danger mb-3" asp-action="Create">Kullanıcı Ekle</a>
 <table class="table table-dark">
     <thead>
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Name</th>
-    </tr>
+        <tr>
+
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Rating</th>
+            <th>Imdb</th>
+            <th>SceneDate</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <th scope="row">@item.Name</th>
-        </tr>
-    }
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Name</th>
+                <th scope="row">@item.Cost</th>
+                <th scope="row">@item.Rating</th>
+                <th scope="row">@item.Imdb</th>
+                <th scope="row">@item.SceneDate</th>
+            </tr>
+        }
 
     </tbody>
 </table>

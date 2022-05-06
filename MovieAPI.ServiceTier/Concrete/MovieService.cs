@@ -21,7 +21,7 @@ namespace MovieAPI.ServiceTier.Concrete
             m_movieRepository = movieRepository;
         }
 
-        public Task<bool> AddAsync(MovieDto model)
+        public Task<bool> AddAsync(MovieCreateDto model)
         {
 
             var result = m_movieRepository.AddAsync(m_mapper.Map<Movie>(model));
