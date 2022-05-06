@@ -25,6 +25,7 @@ namespace MovieAPI.ServiceTier.AutoMapper.Profiles
             CreateMap<SaveActor, Actor>().ReverseMap();
             CreateMap<UpdateActor,Actor>().ReverseMap();
             CreateMap<ActorDto,Actor>().ReverseMap();
+            CreateMap<Movie,MovieCreateDto>().ReverseMap();
 
         }
    

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieAPI.ModelTier", "MovieAPI.Entities\MovieAPI.ModelTier.csproj", "{7492202F-291F-477C-AC78-AB278B3EDB7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI.ModelTier", "MovieAPI.Entities\MovieAPI.ModelTier.csproj", "{7492202F-291F-477C-AC78-AB278B3EDB7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieAPI.DataTier", "MovieAPI.DataTier\MovieAPI.DataTier.csproj", "{74674AEE-D65A-4095-BFCB-F0D343443551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI.DataTier", "MovieAPI.DataTier\MovieAPI.DataTier.csproj", "{74674AEE-D65A-4095-BFCB-F0D343443551}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieAPI.ServiceTier", "MovieAPI.ServiceTier\MovieAPI.ServiceTier.csproj", "{FBA68C69-DA00-46C4-9928-D3DCC60C19EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI.ServiceTier", "MovieAPI.ServiceTier\MovieAPI.ServiceTier.csproj", "{FBA68C69-DA00-46C4-9928-D3DCC60C19EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieAPI.API", "MovieAPI.API\MovieAPI.API.csproj", "{BD3CEC4C-267D-4B45-9DAF-62163FF6D9DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MovieAPI.API", "MovieAPI.API\MovieAPI.API.csproj", "{BD3CEC4C-267D-4B45-9DAF-62163FF6D9DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieApı.MVC", "MovieApı.MVC\MovieApı.MVC.csproj", "{23189A38-2A4A-4C65-BCA6-F3487DBD35E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{BD3CEC4C-267D-4B45-9DAF-62163FF6D9DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD3CEC4C-267D-4B45-9DAF-62163FF6D9DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD3CEC4C-267D-4B45-9DAF-62163FF6D9DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23189A38-2A4A-4C65-BCA6-F3487DBD35E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23189A38-2A4A-4C65-BCA6-F3487DBD35E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23189A38-2A4A-4C65-BCA6-F3487DBD35E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23189A38-2A4A-4C65-BCA6-F3487DBD35E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

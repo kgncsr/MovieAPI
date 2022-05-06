@@ -20,7 +20,7 @@ namespace MovieAPI.API.Controllers
 
 
         [HttpPost("save")]
-        public async Task<IActionResult> Save(MovieDto movie)
+        public async Task<IActionResult> Save(MovieCreateDto movie)
         {
             return new ObjectResult(await m_movieService.AddAsync(movie));
         }
