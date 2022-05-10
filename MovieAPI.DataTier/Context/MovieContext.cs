@@ -18,6 +18,7 @@ namespace MovieAPI.DataTier.Context
 
         }
         public DbSet<Actor> Actors { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<Movie> Movies { get; set; }
