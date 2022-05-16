@@ -12,14 +12,14 @@ namespace MovieAPI.ServiceTier.Responses
         {
 
         }
-        public DataResponse(bool success) : base(success)
+        public DataResponse(bool success,T data) : base(success)
         {
-
+            Data = data;
         }
 
-        public DataResponse(bool success, string message) : base(success, message)
+        public DataResponse(bool success, string message, T data) : base(success, message)
         {
-
+            Data = data;
         }
 
         public T Data { get; set; }

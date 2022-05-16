@@ -10,6 +10,6 @@ namespace MovieAPI.ServiceTier.Interfaces
 {
     public interface IUserService
     {
-        public Task<AccessToken> Authanticate(UserLoginDto userLogin);
+        //public Task<AccessToken> Authanticate(UserLoginDto userLogin);
     }
 }

@@ -7,23 +7,29 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using MovieAPI.ServiceTier.Responses;
 
 namespace MovieAPI.ServiceTier.Interfaces
 {
     public interface IMovieService
     {
-        Task<bool> AddAsync(MovieCreateDto model);
-        Task<IQueryable<MovieDto>> GetAllAsync(bool track=true);
-        Task<IEnumerable<MovieDto>> FindMoviesYearMonth(int year, int month, bool track = true);
+        #region  ended
+        Task<DataResponse<IEnumerable<MovieDto>>> GetAllAsync(bool track = true);
+        Task<DataResponse<List<MovieDto>>> FindByYearAsync(int year, bool track = true);
+        Task<DataResponse<IEnumerable<MovieDto>>> FindMoviesYearMonth(int year, int month, bool track = true);
+        Task<DataResponse<List<MovieDto>>> MoviesByImdbGreaterOrderBy(long imdb, bool track = true);
+        Task<DataResponse<IEnumerable<MovieManagerDto>>> FindMoviesByManagerId(int managerId, bool track = true);
+        Task<DataResponse<long>> GetCountAsync();
+
         Task<decimal> FindSumYearAsync(int year);
 
-        Task<List<MovieDto>> MoviesByImdbGreaterOrderBy(long imdb, bool track=true);
 
-        Task<List<MovieDto>> FindByYearAsync(int year, bool track = true);
-        Task<IEnumerable<MovieManagerDto>> FindMoviesByManagerId(int managerId, bool track = true);
+        #endregion
 
-        Task<long> GetCountAsync();
 
+
+        Task<bool> AddAsync(MovieCreateDto model);
+       
         Task<MovieDto> GetByIdAsync(int id, bool track = true);
         Task<bool> AddRangeAsync(IEnumerable<Movie> adds);
         bool Delete(Movie model);

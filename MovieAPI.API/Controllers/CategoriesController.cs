@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Entities;
 using MovieAPI.ServiceTier.Interfaces;
@@ -10,7 +9,7 @@ namespace MovieAPI.API.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private  readonly  ICategoryService m_categoryService;
+        private readonly ICategoryService m_categoryService;
 
         public CategoriesController(ICategoryService CategoryService)
         {
@@ -20,19 +19,35 @@ namespace MovieAPI.API.Controllers
         [HttpPost("save")]
         public async Task<IActionResult> Add(Category category)
         {
-            return new ObjectResult(await  m_categoryService.AddAsync(category));
+            var result = await m_categoryService.AddAsync(category);
+            if (result.Success)
+            {
+                return Ok(result.Data);
+            }
+            return BadRequest();
         }
 
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
         {
-            return new ObjectResult(await m_categoryService.GetAll());
+            var categories = await m_categoryService.GetAll();
+            if (categories.Success)
+            {
+                return Ok(categories.Data);
+            }
+            return BadRequest(m_categoryService.GetAll().Result.Message);
+
         }
 
         [HttpDelete("removebyid")]
         public IActionResult RemoveById(int id)
         {
-            return new ObjectResult(m_categoryService.RemoveById(id));
+            var result = m_categoryService.RemoveById(id);
+            if (result.Success)
+            {
+                return Ok();
+            }
+            return BadRequest(result.Message);
         }
 
         [HttpPost("remove")]

@@ -44,7 +44,7 @@ namespace MovieAPI.API.Controllers
         public async Task<IActionResult> GetAllMovieAsync()
         {
             var result = await m_movieService.GetAllAsync();
-            return new ObjectResult(result.ToList());
+            return new ObjectResult(result);
         }
         [HttpGet("count")]
         public async Task<IActionResult> CountAsync()
