@@ -9,8 +9,9 @@ namespace MovieAPI.ServiceTier.JWT
     public class AccessToken
     {
         public string Token { get; set; }
-        public DateTime Expirition  { get; set; }
+        public DateTime TokenExpirition  { get; set; }
         public string  UserName  { get; set; }
         public int  UserId  { get; set; }
+        public string EMail { get; set; }
     }
 }

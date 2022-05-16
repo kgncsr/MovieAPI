@@ -8,6 +8,6 @@ namespace MovieAPI.ServiceTier.JWT
 {
     public class AppSettings
     {
-        public string SecurityKey { get; set; }
+        public string Secret { get; set; }
     }
 }
