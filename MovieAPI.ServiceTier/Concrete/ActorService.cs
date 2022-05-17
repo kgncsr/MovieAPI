@@ -17,7 +17,6 @@ namespace MovieAPI.ServiceTier.Concrete
     public class ActorService : IActorService
     {
         private readonly IActorRepository m_actorRepository;
-        private readonly IActorService _actorServiceImplementation;
         private readonly IMapper m_mapper;
 
         public ActorService(IActorRepository actorRepository, IMapper mMapper)
@@ -37,7 +36,7 @@ namespace MovieAPI.ServiceTier.Concrete
         }
         public async Task<IEnumerable<ActorDto>> GetAllActorsAsync()
         {
-            var result =  await m_actorRepository.GetAllAsync();
+            var result = await m_actorRepository.GetAllAsync();
             var actors = result.Select(a => m_mapper.Map<ActorDto>(a));
             return actors;
         }

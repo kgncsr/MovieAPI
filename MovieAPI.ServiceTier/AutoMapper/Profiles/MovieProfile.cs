@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MovieAPI.ModelTier;
 using MovieAPI.ServiceTier.Dtos.Actor;
+using MovieAPI.ServiceTier.Dtos.User;
 
 namespace MovieAPI.ServiceTier.AutoMapper.Profiles
 {
@@ -26,6 +27,7 @@ namespace MovieAPI.ServiceTier.AutoMapper.Profiles
             CreateMap<UpdateActor,Actor>().ReverseMap();
             CreateMap<ActorDto,Actor>().ReverseMap();
             CreateMap<Movie,MovieCreateDto>().ReverseMap();
+            CreateMap<User,UserDto>().ReverseMap();
 
         }
    
