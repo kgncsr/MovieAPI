@@ -24,6 +24,7 @@ namespace MovieAPI.ServiceTier.Extension
             serviceCollection.AddScoped<IActorService, ActorService>();
             serviceCollection.AddScoped<IActorRepository, ActorRepository>();
             serviceCollection.AddScoped<ITokenService, TokenService>();
+            serviceCollection.AddScoped<IAuthService, AuthService>();
 
 
 
