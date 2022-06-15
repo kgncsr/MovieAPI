@@ -18,12 +18,19 @@ namespace MovieAPI.API.Controllers
         [HttpGet("find/manager/age")]
         public async Task<IActionResult> ManagersByAgeGreater(int age)
         {
-            return new ObjectResult(await m_managerService.ManagersByAgeGreater(age));
+            var result = await m_managerService.ManagersByAgeGreater(age);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
+
         }
         [HttpPost("save")]
         public async Task<IActionResult> Save(SaveManagerDto manager)
         {
-            return new ObjectResult(await m_managerService.AddAsync(manager));
+            var saveresult = await m_managerService.AddAsync(manager);
+            return new ObjectResult(saveresult);
         }
         [HttpGet("all")]
         public async Task<IActionResult> GetAll()
@@ -32,9 +39,15 @@ namespace MovieAPI.API.Controllers
         }
 
         [HttpDelete("removebyid")]
-        public IActionResult RemoveById(int id)
+        public async Task<IActionResult> RemoveById(int id)
         {
-            return new ObjectResult(m_managerService.RemoveByIdAsync(id));
+            var result = await m_managerService.RemoveByIdAsync(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest(result);
         }
         [HttpPost("remove")]
         public IActionResult Remove(Manager manager)
@@ -45,7 +58,13 @@ namespace MovieAPI.API.Controllers
         [HttpPut("update")]
         public IActionResult Update(Manager manager)
         {
-            return new ObjectResult(m_managerService.Update(manager));
+            var result = m_managerService.Update(manager);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
         }
 
     }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MovieAPI.DataTier.Interfaces;
 using MovieAPI.Entities;
 using MovieAPI.ServiceTier.Interfaces;
+using MovieAPI.ServiceTier.Responses;
 
 namespace MovieAPI.ServiceTier.Concrete
 {
@@ -19,18 +20,31 @@ namespace MovieAPI.ServiceTier.Concrete
             m_categoryRepository = CategoryRepository;
         }
 
-        public async Task<bool> AddAsync(Category category)
+        public async Task<DataResponse<Category>> AddAsync(Category category)
         {
-            return await m_categoryRepository.AddAsync(category);
+            var result =   await m_categoryRepository.AddAsync(category);
+            if (result)
+            {
+                return new DataResponse<Category>(true,"Basarıyla eklendi", category);
+            }
+            return new DataResponse<Category>(false,"başarısız oldu", category);
         }
-        public async Task<IEnumerable<Category>> GetAll(bool track=true)
+        public async Task<DataResponse<IEnumerable<Category>>> GetAll(bool track=true)
         {
-            return await m_categoryRepository.GetAllAsync(track);
+            var all = await m_categoryRepository.GetAllAsync();
+            return new DataResponse<IEnumerable<Category>>(true, all);
         }
 
-        public bool RemoveById(int id)
+        public Response RemoveById(int id)
         {
-            return m_categoryRepository.DeleteByIdAsync(id);
+            var category =  m_categoryRepository.GetByIdAsync(id).Result;
+            if (category == null)
+            {
+                return new Response(false, "id' ye sahip category bulunamadı");
+            }
+
+            m_categoryRepository.DeleteByIdAsync(id);
+            return new Response(true, "Basarıyla Silindi");
         }
 
         public bool Remove(Category category)

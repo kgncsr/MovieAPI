@@ -14,9 +14,12 @@ using MovieAPI.DataTier.Context;
 using MovieAPI.DataTier.Interfaces;
 using MovieAPI.ServiceTier.AutoMapper.Profiles;
 using MovieAPI.ServiceTier.Concrete;
+using MovieAPI.ServiceTier.Extension;
 using MovieAPI.ServiceTier.Filters;
 using MovieAPI.ServiceTier.Interfaces;
 using MovieAPI.ServiceTier.JWT;
+using MovieAPI.ServiceTier.JWT.Concrete;
+using MovieAPI.ServiceTier.JWT.Interface;
 using MovieAPI.ServiceTier.Validators.Managers;
 using MovieAPI.ServiceTier.Validators.Movies;
 
@@ -31,48 +34,30 @@ namespace MovieAPI.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.MyService();
             #region Jwt
-
-            var appsettingSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appsettingSection);
-
-            var appsettings=appsettingSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appsettings.SecurityKey);
+            var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(a =>
             {
                 a.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                a.DefaultChallengeScheme= JwtBearerDefaults.AuthenticationScheme;
+                a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(b =>
             {
-                b.RequireHttpsMetadata = false;//http
+          
                 b.SaveToken = true;
                 b.TokenValidationParameters = new TokenValidationParameters()
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),//imza key i symetric asimetric ile olsun
-                    ValidateIssuer = false,
-                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,//token deðerinin bu uygulamaya ait olup olmadýgýný anlamamýzý saðlayan security key doðrulamasý aktiflestirildi.
+                    IssuerSigningKey = new SymmetricSecurityKey(key),//olusturulan token deðerinin uygulamaya ait deðer oldugnu belirten security key
+                    ValidateIssuer = false,//olusturulan token deðerini kimin daðýttýðýný belirten alan 
+                    ValidateAudience = false,//olusturulan token deðerini kimlerin belirlediði hangi sitelerin kullanacagýný belirten alan
                 };
             });
 
             #endregion
-
-            services.AddScoped<IMovieRepository, MovieRepository>();
-            services.AddScoped<IMovieService, MovieService>();
-            services.AddScoped<IManagerRepository, ManagerRepository>();
-            services.AddScoped<IManagerService, ManagerService>();
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-
-            services.AddScoped<IActorService, ActorService>();
-            services.AddScoped<IActorRepository, ActorRepository>();
-            services.AddAutoMapper(typeof(MovieProfile));
+            services.AddAutoMapper(typeof(MovieProfile), typeof(UserProfile));
             services.AddPersistenceServices();
             services.AddControllers(opt => opt.Filters.Add<ValidationFilter>())
                 .AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<SaveManagerValidator>())
