@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MovieAPI.Entities;
 using MovieAPI.ServiceTier.Dtos.Movie;
 using MovieAPI.ServiceTier.Interfaces;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace MovieAPI.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MoviesController : ControllerBase
@@ -15,7 +17,7 @@ namespace MovieAPI.API.Controllers
         private readonly IMovieService m_movieService;
         public MoviesController(IMovieService movieService)
         {
-            m_movieService = movieService;
+            m_movieService = movieService; 
         }
 
 

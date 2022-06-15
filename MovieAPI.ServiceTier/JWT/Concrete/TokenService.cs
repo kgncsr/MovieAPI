@@ -5,6 +5,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using MovieAPI.ServiceTier.JWT.Interface;
@@ -13,22 +15,24 @@ namespace MovieAPI.ServiceTier.JWT.Concrete
 {
     public class TokenService : ITokenService
     {
-        private  readonly  AppSettings m_appSettings;
-        public TokenService(IOptions<AppSettings> appSettings)
+        private readonly IConfiguration m_configuration;
+        public TokenService(IConfiguration mConfiguration)
         {
-            m_appSettings = appSettings.Value;
+            m_configuration = mConfiguration;
+          
         }
-        public AccessToken CreateToken(int userId, string userName,string eMail)
+        public AccessToken CreateToken(/*int userId,*/ string userName,string eMail)
         {
-            byte[] key = Encoding.UTF8.GetBytes(m_appSettings.Secret);
+            byte[] key = Encoding.ASCII.GetBytes(m_configuration["Secret"]/*m_appSettings.Secret*/);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
-                Subject = new ClaimsIdentity(new Claim[]
+                Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.Name, userName.ToString()),
-                    new Claim(ClaimTypes.Email, eMail.ToString()),
-                    new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                    new Claim(ClaimTypes.Name, userName),
+                    new Claim(ClaimTypes.Email, eMail),
+                    //new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
                 }),
+                Expires = DateTime.UtcNow.AddDays(5),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
             };
@@ -37,9 +41,6 @@ namespace MovieAPI.ServiceTier.JWT.Concrete
 
             var accessToken = new AccessToken()
             {
-                UserId = userId,
-                UserName = userName,
-                EMail = eMail,
                 Token = tokenHandler.WriteToken(token),
                 TokenExpirition = (DateTime)tokenDescriptor.Expires,
             };

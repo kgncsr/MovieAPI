@@ -45,14 +45,14 @@ namespace MovieAPI.API
                 a.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(b =>
             {
-                b.RequireHttpsMetadata = false;//http
+          
                 b.SaveToken = true;
                 b.TokenValidationParameters = new TokenValidationParameters()
                 {
                     ValidateIssuerSigningKey = true,//token deðerinin bu uygulamaya ait olup olmadýgýný anlamamýzý saðlayan security key doðrulamasý aktiflestirildi.
                     IssuerSigningKey = new SymmetricSecurityKey(key),//olusturulan token deðerinin uygulamaya ait deðer oldugnu belirten security key
                     ValidateIssuer = false,//olusturulan token deðerini kimin daðýttýðýný belirten alan 
-                    ValidateAudience = true,//olusturulan token deðerini kimlerin belirlediði hangi sitelerin kullanacagýný belirten alan
+                    ValidateAudience = false,//olusturulan token deðerini kimlerin belirlediði hangi sitelerin kullanacagýný belirten alan
                 };
             });
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieAPI.ServiceTier.Interfaces;
 using System.Threading.Tasks;
+using MovieAPI.ServiceTier.Dtos.User;
 
 namespace MovieAPI.API.Controllers
 {
@@ -17,7 +18,7 @@ namespace MovieAPI.API.Controllers
         [HttpGet("find/userbyid")]
         public async Task<IActionResult> GetUserByIdAsync(int id)
         {
-            var result = await m_userService.GetUserByIdAsync(id,false);
+            var result = await m_userService.GetUserByIdAsync(id, false);
             if (result.Success)
             {
                 return Ok(result);
@@ -29,7 +30,7 @@ namespace MovieAPI.API.Controllers
         [HttpGet("find/userbyname")]
         public async Task<IActionResult> GetUserByNameAsync(string name)
         {
-            var result = await m_userService.GetUserByUserName(name, false);
+            var result = await m_userService.GetUserByName(name, false);
             return new ObjectResult(result);
         }
 
@@ -38,5 +39,13 @@ namespace MovieAPI.API.Controllers
         {
             return new ObjectResult(await m_userService.AllUser());
         }
-    }
+
+        [HttpPost("save")]
+        public async Task<IActionResult> Add(UserAddTestDto user)
+        {
+            var result =await m_userService.AddAsync(user);
+            return new ObjectResult(result);
+        }
 }
+}
+

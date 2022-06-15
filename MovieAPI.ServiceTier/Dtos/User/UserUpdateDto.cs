@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MovieAPI.ServiceTier.Dtos.User
 {
-    public class UserDto
+    public class UserUpdateDto
     {
         public int Id { get; set; }
         public string UserName { get; set; }

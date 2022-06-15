@@ -41,7 +41,7 @@ namespace MovieAPI.ServiceTier.Concrete
             var result = await m_movieRepository.FindMoviesYearMonth(year, month, track);
             var movies = result.Select(a => m_mapper.Map<MovieDto>(a)).ToList();
 
-            return new DataResponse<IEnumerable<MovieDto>>(true,movies);
+            return new DataResponse<IEnumerable<MovieDto>>(true, movies);
         }
         public async Task<DataResponse<List<MovieDto>>> MoviesByImdbGreaterOrderBy(long imdb, bool track = true)
         {
@@ -58,7 +58,7 @@ namespace MovieAPI.ServiceTier.Concrete
         }
         public async Task<DataResponse<long>> GetCountAsync()
         {
-            return new DataResponse<long>(true,await m_movieRepository.GetCountAsync());
+            return new DataResponse<long>(true, await m_movieRepository.GetCountAsync());
         }
         public Task<decimal> FindSumYearAsync(int year)
         {

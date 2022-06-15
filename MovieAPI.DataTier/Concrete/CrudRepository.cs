@@ -114,7 +114,7 @@ namespace MovieAPI.DataTier.Concrete
 
         public async Task<T> GetSingleFilterAsync(Expression<Func<T, bool>> predicate, bool track = true)
         {
-            var query = Table.AsQueryable();
+            var query = Table.AsQueryable(); 
             if (!track)
             {
                 query.AsNoTracking();
